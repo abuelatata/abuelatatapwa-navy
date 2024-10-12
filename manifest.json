@@ -1,0 +1,21 @@
+{
+  "name": "Cálculo de Talla - Abuela Tata",
+  "short_name": "Cálculo Talla",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0f8ff",
+  "theme_color": "#4CAF50",
+  "description": "Aplicación para calcular la talla de los vestidos de Abuela Tata.",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
