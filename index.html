@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de Talla - Abuela Tata</title>
+    <link rel="manifest" href="manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js').then(function() {
+                console.log('Service Worker registrado');
+            });
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            padding: 20px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 450px;
+            margin: 0 auto;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            font-size: 26px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        label {
+            display: block;
+            text-align: left;
+            color: #555;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 25px;
+            font-size: 18px;
+            color: #4CAF50;
+            font-weight: bold;
+            text-align: center;
+        }
+        #note {
+            color: #d9534f;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .note-box {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: -10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Cálculo de Talla</h2>
+        <form id="tallaForm">
+            <label for="pecho">Pecho (cm):</label>
+            <input type="number" id="pecho" required>
+            <div class="note-box">
+                <p id="note">Nota: Añade una holgura de 2 cm al contorno de pecho al medir para comodidad.</p>
+            </div>
+
+            <label for="cintura">Cintura (cm):</label>
+            <input type="number" id="cintura" required>
+            
+            <label for="talle">Talle Delantero (cm):</label>
+            <input type="number" id="talle" required>
+            
+            <label for="espalda">Espalda (cm):</label>
+            <input type="number" id="espalda" required>
+            
+            <label for="largo">Largo Total (cm):</label>
+            <input type="number" id="largo" required>
+            
+            <button type="button" onclick="calcularTalla()">Calcular Talla</button>
+        </form>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calcularTalla() {
+            const tallas = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+            const pecho_data = [68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88];
+            const cintura_data = [66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86];
+            const talle_data = [26.3, 27.5, 28, 28.5, 29, 29.5, 30, 30.5, 31, 31.5, 32];
+            const espalda_data = [27.6, 28.2, 29, 29.8, 30.7, 31.5, 32, 32.8, 33.5, 34.4, 35.3];
+            const largo_total_data = [110, 114, 118, 120, 123, 128, 133, 138, 140, 148, 148];
+            
+            let pecho = parseFloat(document.getElementById("pecho").value);
+            const cintura = parseFloat(document.getElementById("cintura").value);
+            const talle = parseFloat(document.getElementById("talle").value);
+            const espalda = parseFloat(document.getElementById("espalda").value);
+            const largo = parseFloat(document.getElementById("largo").value);
+            
+            if (isNaN(pecho) || isNaN(cintura) || isNaN(talle) || isNaN(espalda) || isNaN(largo)) {
+                document.getElementById("result").textContent = "Por favor, introduce medidas válidas.";
+                return;
+            }
+
+            pecho += 2;
+
+            if (pecho < pecho_data[0] || pecho > pecho_data[pecho_data.length - 1] || largo < largo_total_data[0] || largo > largo_total_data[largo_total_data.length - 1]) {
+                document.getElementById("result").textContent = "Talla especial: fuera del rango estándar.";
+                return;
+            }
+            
+            let tallaSugerida = "No se encuentra una talla adecuada";
+            for (let i = 0; i < tallas.length; i++) {
+                if (pecho <= pecho_data[i]) {
+                    tallaSugerida = "Talla sugerida: " + tallas[i];
+                    break;
+                }
+            }
+            
+            let diferenciaLargo = Math.abs(largo - largo_total_data[tallas.indexOf(parseInt(tallaSugerida.replace("Talla sugerida: ", "")))]);
+            if (diferenciaLargo > 5) {
+                tallaSugerida += " (Verificar largo total, posible ajuste)";
+            }
+
+            document.getElementById("result").textContent = tallaSugerida;
+        }
+    </script>
+</body>
+</html>
