@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Abuela Tata · Pedidos Comunión 2026</title>
+<style>
+  :root{--bg:#faf7f1;--card:#fff;--ink:#333;--accent:#b88c5d;--line:#ecd9bf;}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial;}
+  .wrap{max-width:900px;margin:20px auto;padding:0 14px;}
+  h1{font-size:20px;margin:0 0 10px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin:10px 0}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  input,select,button,textarea{padding:10px;border:1px solid #e6dccd;border-radius:10px;font-size:14px}
+  button.cta{background:var(--accent);color:#fff;border:none;font-weight:700;cursor:pointer}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+  .card{border:1px solid var(--line);border-radius:12px;background:#fff;display:flex;flex-direction:column}
+  .card .ph{aspect-ratio:4/3;background:linear-gradient(135deg,#f9f3ea,#fff);display:grid;place-items:center;color:#8b6a43;font-weight:700}
+  .card .body{padding:10px;display:flex;flex-direction:column;gap:8px}
+  .meta{font-size:12px;color:#666}
+  .controls{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .cart-item{display:flex;justify-content:space-between;border-bottom:1px dashed #eadfcd;padding:6px 0}
+  .note{font-size:12px;color:#7b6a55}
+  .tag{display:inline-block;padding:2px 8px;border-radius:999px;border:1px solid #ead8be;background:#fff7ec;font-size:12px;color:#6d5336}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Abuela Tata · Pedidos Comunión 2026</h1>
+
+  <div class="panel">
+    <div class="row">
+      <span class="tag">WhatsApp receptor: <strong>+34 621 268 525</strong></span>
+      <label class="tag"><input type="checkbox" id="showPrices"> Mostrar precios</label>
+    </div>
+    <div class="row"><span class="note">En el mensaje de WhatsApp siempre se incluyen los precios. En pantalla puedes ocultarlos.</span></div>
+  </div>
+
+  <div class="panel">
+    <div class="row" style="justify-content:space-between">
+      <strong>Vestidos</strong>
+      <button class="cta" onclick="clearCart()">🧹 Vaciar carrito</button>
+    </div>
+    <div id="gridV" class="grid"></div>
+  </div>
+
+  <div class="panel">
+    <strong>Accesorios (Tiaras · Lazadas)</strong>
+    <div id="gridA" class="grid"></div>
+  </div>
+
+  <div class="panel">
+    <div class="row" style="justify-content:space-between">
+      <strong>🧺 Carrito</strong><span id="count" class="meta">0 artículos</span>
+    </div>
+    <div id="cart"></div>
+    <div class="row" style="margin-top:8px">
+      <textarea id="notes" rows="3" placeholder="Notas del pedido (entrega, agrupación, etc.)" style="flex:1;min-width:260px"></textarea>
+      <button class="cta" onclick="sendWA()" style="min-width:220px">📦 Enviar por WhatsApp</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="note">Tip: Comparte este archivo a tus clientes o súbelo a tu web. El cliente sólo elige talla/cantidad y envía el pedido.</div>
+  </div>
+</div>
+
+<script>
+const VESTIDOS = [{"ref": "700137.0", "nombre": "VESTIDO C OMUNION 26", "descripcion": "VESTIDO C OMUNION 26", "precio": 166.85, "categoria": "Vestido Comunión"}, {"ref": "704126.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 221.0, "categoria": "Vestido Comunión"}, {"ref": "704127.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 174.5, "categoria": "Vestido Comunión"}, {"ref": "705134.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 161.0, "categoria": "Vestido Comunión"}, {"ref": "705136.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 230.0, "categoria": "Vestido Comunión"}, {"ref": "705138.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 149.0, "categoria": "Vestido Comunión"}, {"ref": "709121.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 194.0, "categoria": "Vestido Comunión"}, {"ref": "709125.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 199.0, "categoria": "Vestido Comunión"}, {"ref": "709126.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 221.0, "categoria": "Vestido Comunión"}, {"ref": "709128.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 157.95, "categoria": "Vestido Comunión"}, {"ref": "709128.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 157.95, "categoria": "Vestido Comunión"}, {"ref": "709130.0", "nombre": "VESTIDO COMUNION 25", "descripcion": "VESTIDO COMUNION 25", "precio": 228.0, "categoria": "Vestido Comunión"}, {"ref": "709133.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 183.0, "categoria": "Vestido Comunión"}, {"ref": "709137.0", "nombre": "VESTIDO C OMUNION 26", "descripcion": "VESTIDO C OMUNION 26", "precio": 166.85, "categoria": "Vestido Comunión"}, {"ref": "709139.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 195.0, "categoria": "Vestido Comunión"}, {"ref": "717121.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 194.0, "categoria": "Vestido Comunión"}, {"ref": "717123.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 213.0, "categoria": "Vestido Comunión"}, {"ref": "717125.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 199.0, "categoria": "Vestido Comunión"}, {"ref": "717128.0", "nombre": "VESTIDO C OMUNION 26", "descripcion": "VESTIDO C OMUNION 26", "precio": 157.95, "categoria": "Vestido Comunión"}, {"ref": "717128.0", "nombre": "VESTIDO C OMUNION 26", "descripcion": "VESTIDO C OMUNION 26", "precio": 157.95, "categoria": "Vestido Comunión"}, {"ref": "717130.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 228.0, "categoria": "Vestido Comunión"}, {"ref": "717134.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 161.0, "categoria": "Vestido Comunión"}, {"ref": "717135.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 210.0, "categoria": "Vestido Comunión"}, {"ref": "717140.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 150.0, "categoria": "Vestido Comunión"}, {"ref": "724123.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 213.0, "categoria": "Vestido Comunión"}, {"ref": "724127.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 174.5, "categoria": "Vestido Comunión"}, {"ref": "724134.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 161.0, "categoria": "Vestido Comunión"}, {"ref": "724135.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 210.0, "categoria": "Vestido Comunión"}, {"ref": "724136.0", "nombre": "VESTIDO C OMUNION 26", "descripcion": "VESTIDO C OMUNION 26", "precio": 230.0, "categoria": "Vestido Comunión"}, {"ref": "724138.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 149.0, "categoria": "Vestido Comunión"}, {"ref": "724140.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 150.0, "categoria": "Vestido Comunión"}, {"ref": "725123.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 213.0, "categoria": "Vestido Comunión"}, {"ref": "725125.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 199.0, "categoria": "Vestido Comunión"}, {"ref": "725127.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 174.5, "categoria": "Vestido Comunión"}, {"ref": "725128.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 157.95, "categoria": "Vestido Comunión"}, {"ref": "725128.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 157.95, "categoria": "Vestido Comunión"}, {"ref": "725129.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 205.0, "categoria": "Vestido Comunión"}, {"ref": "725130.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 228.0, "categoria": "Vestido Comunión"}, {"ref": "725132.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 165.0, "categoria": "Vestido Comunión"}, {"ref": "725133.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 183.0, "categoria": "Vestido Comunión"}, {"ref": "725134.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 161.0, "categoria": "Vestido Comunión"}, {"ref": "725135.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 210.0, "categoria": "Vestido Comunión"}, {"ref": "725136.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 230.0, "categoria": "Vestido Comunión"}, {"ref": "725137.0", "nombre": "VESTIDO C OMUNION 26", "descripcion": "VESTIDO C OMUNION 26", "precio": 166.85, "categoria": "Vestido Comunión"}, {"ref": "725138.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 149.0, "categoria": "Vestido Comunión"}, {"ref": "725140.0", "nombre": "VESTIDO COMUNION 26 SIN MANGA", "descripcion": "VESTIDO COMUNION 26 SIN MANGA", "precio": 150.0, "categoria": "Vestido Comunión"}, {"ref": "726139.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 195.0, "categoria": "Vestido Comunión"}, {"ref": "731121.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 194.0, "categoria": "Vestido Comunión"}, {"ref": "731141.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 139.0, "categoria": "Vestido Comunión"}, {"ref": "732141.0", "nombre": "VESTIDO COMUNION 26", "descripcion": "VESTIDO COMUNION 26", "precio": 139.0, "categoria": "Vestido Comunión"}, {"ref": "7017123.0", "nombre": "VESTIDO SIN MANGAS COMUNION 26", "descripcion": "VESTIDO SIN MANGAS COMUNION 26", "precio": 213.0, "categoria": "Vestido Comunión"}, {"ref": "7017140.0", "nombre": "VESTIDO COM. MANGA LARGA", "descripcion": "VESTIDO COM. MANGA LARGA", "precio": 168.0, "categoria": "Vestido Comunión"}, {"ref": "7024123.0", "nombre": "VESTIDO SIN MANGAS COMUNION 26", "descripcion": "VESTIDO SIN MANGAS COMUNION 26", "precio": 213.0, "categoria": "Vestido Comunión"}, {"ref": "7024140.0", "nombre": "VESTIDO COM. MANGA LARGA", "descripcion": "VESTIDO COM. MANGA LARGA", "precio": 168.0, "categoria": "Vestido Comunión"}, {"ref": "7025123.0", "nombre": "VESTIDO SIN MANGAS COMUNION 26", "descripcion": "VESTIDO SIN MANGAS COMUNION 26", "precio": 213.0, "categoria": "Vestido Comunión"}, {"ref": "7025140.0", "nombre": "VESTIDO COM. MANGA LARGA", "descripcion": "VESTIDO COM. MANGA LARGA", "precio": 168.0, "categoria": "Vestido Comunión"}, {"ref": "7031141.0", "nombre": "VESTIDO MANGA SISA", "descripcion": "VESTIDO MANGA SISA", "precio": 139.0, "categoria": "Vestido Comunión"}, {"ref": "7032141.0", "nombre": "VESTIDO MANGA SISA", "descripcion": "VESTIDO MANGA SISA", "precio": 139.0, "categoria": "Vestido Comunión"}];
+const ACC = [{"ref": "601142.0", "nombre": "TIARA", "descripcion": "TIARA", "precio": 43.0, "categoria": "Tiara"}, {"ref": "602142.0", "nombre": "TIARA", "descripcion": "TIARA", "precio": 39.85, "categoria": "Tiara"}, {"ref": "603142.0", "nombre": "TIARA", "descripcion": "TIARA", "precio": 39.2, "categoria": "Tiara"}, {"ref": "604142.0", "nombre": "TIARA", "descripcion": "TIARA", "precio": 41.65, "categoria": "Tiara"}, {"ref": "605142.0", "nombre": "TIARA", "descripcion": "TIARA", "precio": 37.95, "categoria": "Tiara"}, {"ref": "606142.0", "nombre": "TIARA", "descripcion": "TIARA", "precio": 39.55, "categoria": "Tiara"}, {"ref": "607142.0", "nombre": "TIARA", "descripcion": "TIARA", "precio": 39.65, "categoria": "Tiara"}, {"ref": "608142.0", "nombre": "TIARA", "descripcion": "TIARA", "precio": 40.35, "categoria": "Tiara"}, {"ref": "609142.0", "nombre": "TIARA", "descripcion": "TIARA", "precio": 42.85, "categoria": "Tiara"}, {"ref": "611142.0", "nombre": "TIARA", "descripcion": "TIARA", "precio": 37.95, "categoria": "Tiara"}, {"ref": "612142.0", "nombre": "TIARA", "descripcion": "TIARA", "precio": 33.05, "categoria": "Tiara"}, {"ref": "613142.0", "nombre": "TIARA", "descripcion": "TIARA", "precio": 38.95, "categoria": "Tiara"}, {"ref": "614142.0", "nombre": "TIARA", "descripcion": "TIARA", "precio": 50.1, "categoria": "Tiara"}, {"ref": "615142.0", "nombre": "TIARA", "descripcion": "TIARA", "precio": 38.3, "categoria": "Tiara"}, {"ref": "616142.0", "nombre": "TIARA", "descripcion": "TIARA", "precio": 37.25, "categoria": "Tiara"}, {"ref": "617142.0", "nombre": "TIARA", "descripcion": "TIARA", "precio": 39.2, "categoria": "Tiara"}, {"ref": "1800999.0", "nombre": "LAZADA COLOR BLANCO ROTO", "descripcion": "LAZADA COLOR BLANCO ROTO", "precio": 13.5, "categoria": "Lazada"}, {"ref": "1801999.0", "nombre": "LAZADA COLOR ROSA", "descripcion": "LAZADA COLOR ROSA", "precio": 13.5, "categoria": "Lazada"}, {"ref": "1805999.0", "nombre": "LAZADA COLOR BEIGE", "descripcion": "LAZADA COLOR BEIGE", "precio": 13.5, "categoria": "Lazada"}, {"ref": "1809999.0", "nombre": "LAZADA COLOR VERDE AGUA", "descripcion": "LAZADA COLOR VERDE AGUA", "precio": 13.5, "categoria": "Lazada"}, {"ref": "1816999.0", "nombre": "LAZADA COLOR NUDE", "descripcion": "LAZADA COLOR NUDE", "precio": 13.5, "categoria": "Lazada"}, {"ref": "1817999.0", "nombre": "LAZADA COLOR AZUL", "descripcion": "LAZADA COLOR AZUL", "precio": 13.5, "categoria": "Lazada"}, {"ref": "1824999.0", "nombre": "LAZADA COLOR MENTA", "descripcion": "LAZADA COLOR MENTA", "precio": 13.5, "categoria": "Lazada"}, {"ref": "1825999.0", "nombre": "LAZADA COLOR MAQUILLAJE", "descripcion": "LAZADA COLOR MAQUILLAJE", "precio": 13.5, "categoria": "Lazada"}, {"ref": "1826999.0", "nombre": "LAZADA COLOR MALVA", "descripcion": "LAZADA COLOR MALVA", "precio": 13.5, "categoria": "Lazada"}, {"ref": "1831999.0", "nombre": "LAZADA COLOR VINO", "descripcion": "LAZADA COLOR VINO", "precio": 13.5, "categoria": "Lazada"}, {"ref": "1832999.0", "nombre": "LAZADA COLOR OLIVA", "descripcion": "LAZADA COLOR OLIVA", "precio": 13.5, "categoria": "Lazada"}, {"ref": "", "nombre": "LAZADA COLORIDO GENERAL", "descripcion": "LAZADA COLORIDO GENERAL", "precio": 13.5, "categoria": "Lazada"}];
+const TALLAS = ["6","7","8","9","10","11","12","13","14","15","16"];
+let cart = [];
+let show = false;
+const PHONE = "+34621268525";
+
+const qs = s => document.querySelector(s);
+const money = v => new Intl.NumberFormat('es-ES', {style:'currency', currency:'EUR'}).format(v||0);
+
+function optionsTallas(){
+  return TALLAS.map(t => `<option value="${t}">${t}</option>`).join('');
+}
+
+function card(p, gridId){
+  const div = document.createElement('div');
+  div.className = 'card';
+  div.innerHTML = `
+    <div class="ph"><span>${p.nombre || p.ref}</span></div>
+    <div class="body">
+      <div><strong>${p.nombre || 'Producto'}</strong> <span class="meta">· Ref. ${p.ref||'-'}</span></div>
+      <div class="meta">${p.descripcion || ''}</div>
+      ${show ? `<div class="meta"><strong>${money(p.precio)}</strong></div>` : ''}
+      <div class="controls">
+        <select id="t-${gridId}-${p.ref}">
+          <option value="">Talla</option>
+          ${optionsTallas()}
+        </select>
+        <input id="q-${gridId}-${p.ref}" type="number" min="1" max="99" placeholder="Cant."/>
+      </div>
+      <input id="o-${gridId}-${p.ref}" placeholder="Obs. (lazada, versión, etc.)"/>
+      <button class="cta" onclick="add('${gridId}','${p.ref}', ${p.precio}, '${(p.get('nombre') if isinstance(p, Object) else '')}')">➕ Añadir</button>
+    </div>`;
+  return div;
+}
+
+function render(){
+  const gV = qs('#gridV'); const gA = qs('#gridA');
+  gV.innerHTML = ''; gA.innerHTML='';
+  VESTIDOS.forEach(p => gV.appendChild(card(p, 'v')));
+  ACC.forEach(p => gA.appendChild(card(p, 'a')));
+}
+
+function add(grid, ref, precio, nombre){
+  const t = qs(`#t-${grid}-${ref}`).value;
+  const q = parseInt(qs(`#q-${grid}-${ref}`).value||'0',10);
+  const o = (qs(`#o-${grid}-${ref}`).value||'').trim();
+  if(!t) return alert('Selecciona talla');
+  if(!(q>0)) return alert('Introduce cantidad');
+  cart.push({ref, nombre: nombre || 'Producto', talla:t, qty:q, precio:precio||0, obs:o});
+  qs(`#t-${grid}-${ref}`).value = '';
+  qs(`#q-${grid}-${ref}`).value = '';
+  qs(`#o-${grid}-${ref}`).value = '';
+  drawCart();
+}
+
+function removeIdx(i){ cart.splice(i,1); drawCart(); }
+function clearCart(){ if(cart.length && confirm('¿Vaciar carrito?')){ cart.length=0; drawCart(); } }
+
+function drawCart(){
+  const box = qs('#cart'); const c = qs('#count');
+  box.innerHTML = '';
+  cart.forEach((it,i)=>{
+    const row = document.createElement('div');
+    row.className='cart-item';
+    row.innerHTML = `
+      <div>
+        <div><strong>${it.nombre}</strong> <span class="meta">· Ref. ${it.ref}</span></div>
+        <div class="meta">Talla ${it.talla} · Cant ${it.qty}${show ? ' · '+money(it.precio)+' c/u' : ''}</div>
+        ${it.obs ? `<div class="meta">Obs.: ${it.obs}</div>`: ''}
+      </div>
+      <div><button class="cta" onclick="removeIdx(${i})">Quitar</button></div>`;
+    box.appendChild(row);
+  });
+  c.textContent = cart.length + (cart.length===1 ? ' artículo' : ' artículos');
+  if(!cart.length) box.innerHTML = '<div class="meta">Carrito vacío.</div>';
+}
+
+function sendWA(){
+  if(!cart.length) return alert('El carrito está vacío');
+  const phone = encodeURIComponent(PHONE);
+  const lines = cart.map((it,i)=>`${i+1}. Ref. ${it.ref} · ${it.nombre} · Talla ${it.talla} · Cant ${it.qty} · Precio ${money(it.precio)}`);
+  const notes = (qs('#notes').value||'').trim();
+  const header = 'Nuevo pedido Abuela Tata 👗';
+  const body = encodeURIComponent(lines.join('\n'));
+  const tail = notes ? '%0A%0ANotas: '+encodeURIComponent(notes) : '';
+  const url = `https://wa.me/${phone}?text=${encodeURIComponent(header)}%0A%0A${body}${tail}`;
+  window.location.href = url;
+}
+
+document.getElementById('showPrices').addEventListener('change', e=>{ show = e.target.checked; render(); drawCart(); });
+render(); drawCart();
+</script>
+</body></html>
