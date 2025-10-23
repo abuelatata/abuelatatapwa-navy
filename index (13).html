@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Navy & Blue · Pedidos Comunión 2026 · v2025-10-23-7</title>
+  <meta name="theme-color" content="#0a2540">
+  <link rel="manifest" href="./manifest.json">
+  <style>
+    :root { --brand:#0a2540; --accent:#0066cc; --muted:#667085; --bg:#f7f7fb; }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,'Noto Sans';background:var(--bg);color:#111}
+    header{background:var(--brand);color:#fff;padding:18px 20px;position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    h1{margin:0;font-size:20px;letter-spacing:.3px}
+    .badge{background:#ffffff22;border:1px solid #ffffff44;padding:4px 8px;border-radius:999px;font-size:12px}
+    .wrap{max-width:1000px;margin:0 auto;padding:22px}
+    .card{background:#fff;border-radius:16px;box-shadow:0 8px 28px rgba(10,37,64,.08);padding:18px}
+    .grid{display:grid;gap:12px}
+    .grid-2{grid-template-columns:1fr 1fr}
+    .grid-3{grid-template-columns:1fr 1fr 1fr}
+    @media(max-width:860px){.grid-2,.grid-3{grid-template-columns:1fr}}
+    label{font-weight:600;font-size:14px;margin-bottom:6px;display:block}
+    input,select,textarea{width:100%;padding:12px 14px;border:1px solid #e3e3e7;border-radius:12px;font-size:14px;background:#fff}
+    .hint{color:var(--muted);font-size:12px;margin-top:4px}
+    .btn{padding:12px 16px;border-radius:12px;border:1px solid #d0d5dd;background:#fff;font-weight:700;cursor:pointer}
+    .btn.primary{background:var(--accent);color:#fff;border:none}
+    .btn.ghost{background:#fff}
+    .btn.lg{padding:16px 18px;border-radius:16px;font-size:16px}
+    .pill{display:inline-block;background:#eef6ff;color:#0a2540;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}
+    .muted{color:var(--muted)}
+    .stepper{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+    .step{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #e6e6ef;border-radius:999px;padding:8px 12px;font-weight:700}
+    .step .num{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#e9eef7;font-weight:800}
+    .step.active{background:#eaf3ff;border-color:#cfe3ff}
+    .h2{font-size:18px;font-weight:800;margin:0 0 8px}
+    .row{display:grid;grid-template-columns:120px 1fr 90px 90px 90px 70px 90px;gap:10px;align-items:center;border-bottom:1px solid #f0f0f0;padding:10px}
+    .row.header{background:#fafafa;font-weight:700}
+    .row:last-child{border-bottom:none}
+    .right{text-align:right}
+    .list{border:1px solid #eee;border-radius:14px;overflow:hidden}
+    .totals{display:flex;justify-content:flex-end;gap:24px;align-items:center;margin-top:14px}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+    .hidden{display:none}
+    .sep{height:1px;background:#eee;margin:8px 0 12px}
+  </style>
+</head>
+<body>
+<header>
+  <h1>⚓ Navy & Blue · Pedidos Comunión 2026</h1>
+  <div class="badge">v2025-10-23-7</div>
+</header>
+
+<div class="wrap">
+  <div class="stepper">
+    <div class="step active" id="s1"><div class="num">1</div>Datos del cliente</div>
+    <div class="step" id="s2"><div class="num">2</div>Modelo y tallas</div>
+    <div class="step" id="s3"><div class="num">3</div>Resumen y envío</div>
+  </div>
+
+  <!-- Paso 1: Datos del cliente -->
+  <section class="card grid grid-2" id="paso1">
+    <div class="h2">Paso 1 · Datos del cliente</div>
+    <div class="sep" style="grid-column:1/-1"></div>
+    <div>
+      <label for="tienda">Nombre de la tienda</label>
+      <input id="tienda" placeholder="Ej.: Boutique Elegance">
+    </div>
+    <div>
+      <label for="contacto">Persona de contacto</label>
+      <input id="contacto" placeholder="Ej.: María Pérez">
+    </div>
+    <div>
+      <label for="ciudad">Ciudad / País</label>
+      <input id="ciudad" placeholder="Ej.: Sevilla, España">
+    </div>
+    <div>
+      <label for="nombreNinaNino">Nombre de niña o niño</label>
+      <input id="nombreNinaNino" placeholder="Ej.: Sofía / Daniel">
+      <div class="hint">Se añadirá en el mensaje del pedido.</div>
+    </div>
+    <div>
+      <label for="fechaServicio">Fecha de servicio</label>
+      <input id="fechaServicio" type="date">
+      <div class="hint">Fecha objetivo de entrega/servicio.</div>
+    </div>
+    <div class="grid-2" style="grid-column:1/-1">
+      <div>
+        <label for="observaciones">Observaciones</label>
+        <textarea id="observaciones" rows="3" placeholder="Plazos, comentarios, notas..."></textarea>
+      </div>
+      <div style="align-self:end;display:flex;gap:10px;justify-content:flex-end">
+        <button class="btn ghost" id="to2prev" disabled>Atrás</button>
+        <button class="btn primary" id="to2">Continuar a modelos</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Paso 2: Modelo y tallas -->
+  <section class="card grid grid-2 hidden" id="paso2">
+    <div class="h2">Paso 2 · Selección de modelo y tallas</div>
+    <div class="sep" style="grid-column:1/-1"></div>
+    <div>
+      <label for="modelo">Modelo</label>
+      <select id="modelo">
+        <option value="" disabled selected>— Selecciona un modelo —</option>
+      </select>
+      <div class="hint">Los modelos aparecerán al abrir el desplegable.</div>
+    </div>
+    <div class="grid grid-2">
+      <div>
+        <label for="tallaChaqueta">Talla chaqueta</label>
+        <select id="tallaChaqueta">
+          <option value="" disabled selected>— Selecciona talla —</option>
+        </select>
+      </div>
+      <div>
+        <label for="tallaPantalon">Talla pantalón</label>
+        <select id="tallaPantalon">
+          <option value="" disabled selected>— Selecciona talla —</option>
+        </select>
+      </div>
+    </div>
+    <div class="grid grid-3">
+      <div>
+        <label for="cantidad">Cantidad</label>
+        <input id="cantidad" type="number" min="1" value="1">
+      </div>
+      <div>
+        <label>Precio base</label>
+        <div id="precioBase" class="pill">—</div>
+      </div>
+      <div>
+        <label>+ Cambio talla</label>
+        <div id="precioCambio" class="pill">—</div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div class="muted">Cambio de talla chaqueta/pantalón: +15€ si son distintas.</div>
+      <div style="display:flex;align-items:center;gap:10px"><strong>Total línea:</strong><div id="totalLinea" class="pill">—</div></div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:space-between">
+      <button class="btn" id="back1">Volver</button>
+      <div class="actions">
+        <button class="btn" id="limpiar">Limpiar selección</button>
+        <button class="btn primary" id="add" disabled>Añadir línea</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Paso 3: Resumen y envío -->
+  <section class="card hidden" id="paso3">
+    <div class="h2">Paso 3 · Resumen y envío</div>
+    <div class="sep"></div>
+    <div class="list" id="lista">
+      <div class="row header hidden" id="headerLineas">
+        <div>Modelo</div>
+        <div>Descripción</div>
+        <div class="right">Chaqueta</div>
+        <div class="right">Pantalón</div>
+        <div class="right">Precio</div>
+        <div class="right">Cant.</div>
+        <div class="right">Importe</div>
+      </div>
+    </div>
+    <div class="totals">
+      <strong>Total pedido:</strong>
+      <div id="totalPedido" class="pill">0,00 €</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+      <button class="btn" id="back2">Volver a modelos</button>
+      <div class="actions">
+        <button class="btn primary lg" id="btnWhatsApp">Pedir por WhatsApp</button>
+        <button class="btn lg" id="btnEmail">Pedir por email</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+const DATA = {"brand": "Navy & Blue", "whatsapp": "+34621268525", "price_diff_note": "EL CAMBIO DE TALLA EN CHAQUETA Y PANTALON TENDRÁ UN INCREMENTO DE 15€", "size_change_fee": 15, "sizes": [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], "items": [{"modelo": "640900001", "descripcion": "MARINERO", "precio_6_12": 144.0, "precio_13_18": 149.0, "precio_19_24": 154.0}, {"modelo": "642200001", "descripcion": "MARINERO", "precio_6_12": 144.0, "precio_13_18": 149.0, "precio_19_24": 154.0}, {"modelo": "643300002", "descripcion": "MARINERO", "precio_6_12": 145.0, "precio_13_18": 150.0, "precio_19_24": 155.0}, {"modelo": "640033002", "descripcion": "MARINERO", "precio_6_12": 145.0, "precio_13_18": 150.0, "precio_19_24": 155.0}, {"modelo": "640600003", "descripcion": "MARINERO", "precio_6_12": 139.0, "precio_13_18": 144.0, "precio_19_24": 149.0}, {"modelo": "640906003", "descripcion": "MARINERO", "precio_6_12": 139.0, "precio_13_18": 144.0, "precio_19_24": 149.0}, {"modelo": "640000004", "descripcion": "MARINERO", "precio_6_12": 150.0, "precio_13_18": 155.0, "precio_19_24": 160.0}, {"modelo": "640022004", "descripcion": "MARINERO", "precio_6_12": 150.0, "precio_13_18": 155.0, "precio_19_24": 160.0}, {"modelo": "640400004", "descripcion": "MARINERO", "precio_6_12": 150.0, "precio_13_18": 155.0, "precio_19_24": 160.0}, {"modelo": "640006005", "descripcion": "MARINERO", "precio_6_12": 145.0, "precio_13_18": 150.0, "precio_19_24": 155.0}, {"modelo": "640906005", "descripcion": "MARINERO", "precio_6_12": 145.0, "precio_13_18": 150.0, "precio_19_24": 155.0}, {"modelo": "640403006", "descripcion": "MARINERO", "precio_6_12": 145.0, "precio_13_18": 150.0, "precio_19_24": 155.0}, {"modelo": "640000006", "descripcion": "MARINERO", "precio_6_12": 145.0, "precio_13_18": 150.0, "precio_19_24": 155.0}, {"modelo": "640003006", "descripcion": "MARINERO", "precio_6_12": 145.0, "precio_13_18": 150.0, "precio_19_24": 155.0}, {"modelo": "640106007", "descripcion": "MARINERO", "precio_6_12": 148.0, "precio_13_18": 153.0, "precio_19_24": 158.0}, {"modelo": "640100007", "descripcion": "MARINERO", "precio_6_12": 148.0, "precio_13_18": 153.0, "precio_19_24": 158.0}, {"modelo": "640406007", "descripcion": "MARINERO", "precio_6_12": 148.0, "precio_13_18": 153.0, "precio_19_24": 158.0}, {"modelo": "640400007", "descripcion": "MARINERO", "precio_6_12": 148.0, "precio_13_18": 153.0, "precio_19_24": 158.0}, {"modelo": "640303B008", "descripcion": "MARINERO", "precio_6_12": 139.0, "precio_13_18": 144.0, "precio_19_24": 149.0}, {"modelo": "640003B008", "descripcion": "MARINERO", "precio_6_12": 139.0, "precio_13_18": 144.0, "precio_19_24": 149.0}, {"modelo": "640300008", "descripcion": "MARINERO", "precio_6_12": 144.0, "precio_13_18": 149.0, "precio_19_24": 154.0}, {"modelo": "640000008", "descripcion": "MARINERO", "precio_6_12": 144.0, "precio_13_18": 149.0, "precio_19_24": 154.0}, {"modelo": "640003008", "descripcion": "MARINERO", "precio_6_12": 144.0, "precio_13_18": 149.0, "precio_19_24": 154.0}, {"modelo": "640000009", "descripcion": "MARINERO", "precio_6_12": 139.0, "precio_13_18": 144.0, "precio_19_24": 149.0}, {"modelo": "640006009", "descripcion": "MARINERO", "precio_6_12": 139.0, "precio_13_18": 144.0, "precio_19_24": 149.0}, {"modelo": "642206009", "descripcion": "MARINERO", "precio_6_12": 139.0, "precio_13_18": 144.0, "precio_19_24": 149.0}, {"modelo": "642200009", "descripcion": "MARINERO", "precio_6_12": 139.0, "precio_13_18": 144.0, "precio_19_24": 149.0}, {"modelo": "630906C001", "descripcion": "ALMIRANTE", "precio_6_12": 212.0, "precio_13_18": 217.0, "precio_19_24": 222.0}, {"modelo": "630000C001", "descripcion": "ALMIRANTE", "precio_6_12": 212.0, "precio_13_18": 217.0, "precio_19_24": 222.0}, {"modelo": "630004C001", "descripcion": "ALMIRANTE", "precio_6_12": 212.0, "precio_13_18": 217.0, "precio_19_24": 222.0}, {"modelo": "632206002", "descripcion": "ALMIRANTE", "precio_6_12": 182.0, "precio_13_18": 187.0, "precio_19_24": 192.0}, {"modelo": "630006002", "descripcion": "ALMIRANTE", "precio_6_12": 182.0, "precio_13_18": 187.0, "precio_19_24": 192.0}, {"modelo": "630006C002", "descripcion": "ALMIRANTE", "precio_6_12": 199.0, "precio_13_18": 204.0, "precio_19_24": 209.0}, {"modelo": "630306003", "descripcion": "ALMIRANTE", "precio_6_12": 200.0, "precio_13_18": 205.0, "precio_19_24": 210.0}, {"modelo": "630406003", "descripcion": "ALMIRANTE", "precio_6_12": 200.0, "precio_13_18": 205.0, "precio_19_24": 210.0}, {"modelo": "630000004", "descripcion": "ALMIRANTE", "precio_6_12": 183.0, "precio_13_18": 188.0, "precio_19_24": 193.0}, {"modelo": "630906004", "descripcion": "ALMIRANTE", "precio_6_12": 183.0, "precio_13_18": 188.0, "precio_19_24": 193.0}, {"modelo": "630406005", "descripcion": "ALMIRANTE", "precio_6_12": 200.0, "precio_13_18": 205.0, "precio_19_24": 210.0}, {"modelo": "630000005", "descripcion": "ALMIRANTE", "precio_6_12": 190.0, "precio_13_18": 195.0, "precio_19_24": 200.0}, {"modelo": "630406006", "descripcion": "ALMIRANTE", "precio_6_12": 202.0, "precio_13_18": 207.0, "precio_19_24": 212.0}, {"modelo": "630306006", "descripcion": "ALMIRANTE", "precio_6_12": 202.0, "precio_13_18": 207.0, "precio_19_24": 212.0}, {"modelo": "630306C007", "descripcion": "ALMIRANTE", "precio_6_12": 202.0, "precio_13_18": 207.0, "precio_19_24": 212.0}, {"modelo": "660404001", "descripcion": "TRAJE", "precio_6_12": 174.0, "precio_13_18": 179.0, "precio_19_24": 184.0}, {"modelo": "660404C002", "descripcion": "TRAJE", "precio_6_12": 180.0, "precio_13_18": 185.0, "precio_19_24": 190.0}, {"modelo": "6509001", "descripcion": "CHAQUETA", "precio_6_12": 76.0, "precio_13_18": 76.0, "precio_19_24": 78.0}, {"modelo": "EL CAMBIO DE TALLA EN CHAQUETA Y PANTALON TENDRA UN INCREMENTO DE 15€", "descripcion": "", "precio_6_12": null, "precio_13_18": null, "precio_19_24": null}]};
+
+function euros(n){ return (n||0).toLocaleString('es-ES', {style:'currency', currency:'EUR'}); }
+function precioPorTalla(item, tallaChaqueta){
+  const t = Number(tallaChaqueta);
+  if (t>=6 && t<=12) return item.precio_6_12;
+  if (t>=13 && t<=18) return item.precio_13_18;
+  if (t>=19 && t<=24) return item.precio_19_24;
+  return null;
+}
+
+const state = { lineas: [] };
+
+// Elements
+const $modelo = document.getElementById('modelo');
+const $tallaChaqueta = document.getElementById('tallaChaqueta');
+const $tallaPantalon = document.getElementById('tallaPantalon');
+const $cantidad = document.getElementById('cantidad');
+const $precioBase = document.getElementById('precioBase');
+const $precioCambio = document.getElementById('precioCambio');
+const $totalLinea = document.getElementById('totalLinea');
+const $lista = document.getElementById('lista');
+const $totalPedido = document.getElementById('totalPedido');
+const $headerLineas = document.getElementById('headerLineas');
+const $btnAdd = document.getElementById('add');
+
+// Steps
+const paso1 = document.getElementById('paso1');
+const paso2 = document.getElementById('paso2');
+const paso3 = document.getElementById('paso3');
+const s1 = document.getElementById('s1');
+const s2 = document.getElementById('s2');
+const s3 = document.getElementById('s3');
+
+function go(n){
+  [paso1,paso2,paso3].forEach((p,i)=>p.classList.toggle('hidden', i!==n-1));
+  [s1,s2,s3].forEach((el,i)=>el.classList.toggle('active', i===n-1));
+}
+document.getElementById('to2').addEventListener('click', ()=> go(2));
+document.getElementById('back1').addEventListener('click', ()=> go(1));
+document.getElementById('back2').addEventListener('click', ()=> go(2));
+
+// Lazy populate
+let modelsPopulated=false, sizesPopulated=false;
+function populateModels(){ if(modelsPopulated) return; DATA.items.forEach(it=>{ const o=document.createElement('option'); o.value=it.modelo; o.textContent=`${it.modelo} · ${it.descripcion}`; $modelo.appendChild(o); }); modelsPopulated=true; }
+function populateSizes(){ if(sizesPopulated) return; DATA.sizes.forEach(s=>{ const a=document.createElement('option'); a.value=s; a.textContent=s+'A'; $tallaChaqueta.appendChild(a); const b=document.createElement('option'); b.value=s; b.textContent=s+'A'; $tallaPantalon.appendChild(b); }); sizesPopulated=true; }
+['focus','mousedown','click'].forEach(ev=>{ $modelo.addEventListener(ev, populateModels); $tallaChaqueta.addEventListener(ev, populateSizes); $tallaPantalon.addEventListener(ev, populateSizes); });
+
+function validarLinea(){ const v=$modelo.value && $tallaChaqueta.value && $tallaPantalon.value; $btnAdd.disabled=!v; return v; }
+
+function calcularLinea(){
+  if(!validarLinea()){ $precioBase.textContent='—'; $precioCambio.textContent='—'; $totalLinea.textContent='—'; return; }
+  const item = DATA.items.find(i=>i.modelo===$modelo.value);
+  const base = precioPorTalla(item, $tallaChaqueta.value) || 0;
+  const cambio = ($tallaChaqueta.value!==$tallaPantalon.value) ? DATA.size_change_fee : 0;
+  const cant = Math.max(1, Number($cantidad.value||1));
+  $precioBase.textContent = euros(base);
+  $precioCambio.textContent = cambio? ('+'+euros(cambio)) : '—';
+  $totalLinea.textContent = euros((base+cambio)*cant);
+}
+['change','input'].forEach(ev=>{ $modelo.addEventListener(ev, calcularLinea); $tallaChaqueta.addEventListener(ev, calcularLinea); $tallaPantalon.addEventListener(ev, calcularLinea); $cantidad.addEventListener(ev, calcularLinea); });
+
+document.getElementById('limpiar').addEventListener('click', ()=>{ $modelo.value=''; $tallaChaqueta.value=''; $tallaPantalon.value=''; $cantidad.value=1; calcularLinea(); });
+
+document.getElementById('add').addEventListener('click', ()=>{
+  if(!validarLinea()) return;
+  const item = DATA.items.find(i=>i.modelo===$modelo.value);
+  const tCha = Number($tallaChaqueta.value), tPan=Number($tallaPantalon.value);
+  const cant = Math.max(1, Number($cantidad.value||1));
+  const base = precioPorTalla(item, tCha) || 0;
+  const cambio = (tCha!==tPan) ? DATA.size_change_fee : 0;
+  const precioUnit = base + cambio;
+  const importe = precioUnit * cant;
+  state.lineas.push({ modelo:item.modelo, descripcion:item.descripcion, tallaChaqueta:tCha, tallaPantalon:tPan, cantidad:cant, precioUnit, importe });
+  renderPedido();
+  go(3);
+});
+
+function renderPedido(){
+  document.querySelectorAll('#lista .row.item').forEach(el=>el.remove());
+  let total=0; state.lineas.forEach((ln,idx)=>{ total+=ln.importe; const row=document.createElement('div'); row.className='row item'; row.innerHTML=`<div>${ln.modelo}</div><div>${ln.descripcion}</div><div class=\"right\">${ln.tallaChaqueta}A</div><div class=\"right\">${ln.tallaPantalon}A</div><div class=\"right\">${euros(ln.precioUnit)}</div><div class=\"right\">${ln.cantidad}</div><div class=\"right\">${euros(ln.importe)} <a href=\"#\" data-idx=\"${idx}\" class=\"muted\" style=\"margin-left:8px\">Eliminar</a></div>`; row.querySelector('a').addEventListener('click',e=>{e.preventDefault(); eliminarLinea(idx);}); $lista.appendChild(row); });
+  $headerLineas.classList.toggle('hidden', state.lineas.length===0);
+  $totalPedido.textContent = euros(total);
+}
+function eliminarLinea(i){ state.lineas.splice(i,1); renderPedido(); }
+
+function fechaHoyES(){
+  const d = new Date();
+  const dd = String(d.getDate()).padStart(2,'0');
+  const mm = String(d.getMonth()+1).padStart(2,'0');
+  const yyyy = d.getFullYear();
+  return `${dd}/${mm}/${yyyy}`;
+}
+
+function buildMensaje(){
+  const tienda = document.getElementById('tienda').value||'';
+  const contacto = document.getElementById('contacto').value||'';
+  const ciudad = document.getElementById('ciudad').value||'';
+  const nombreNinaNino = document.getElementById('nombreNinaNino').value||'';
+  const fechaServicio = document.getElementById('fechaServicio').value||'';
+  const obs = document.getElementById('observaciones').value||'';
+  const fechaPedido = fechaHoyES();
+  let msg = `⚓ Pedido NAVY & BLUE\n📆 Fecha del pedido: ${fechaPedido}\n`;
+  if(tienda) msg += `Tienda: ${tienda}\n`;
+  if(contacto) msg += `Contacto: ${contacto}\n`;
+  if(ciudad) msg += `Ciudad: ${ciudad}\n`;
+  if(nombreNinaNino) msg += `Nombre de niña o niño: ${nombreNinaNino}\n`;
+  if(fechaServicio) msg += `Fecha de servicio: ${fechaServicio}\n`;
+  msg += `\nLíneas:\n`;
+  state.lineas.forEach((ln,i)=>{ msg += `${i+1}) ${ln.modelo} · ${ln.descripcion} — Chaqueta ${ln.tallaChaqueta}A / Pantalón ${ln.tallaPantalon}A — Cant: ${ln.cantidad} — Precio: ${euros(ln.precioUnit)} — Importe: ${euros(ln.importe)}\n`; });
+  msg += `\nTotal: ${document.getElementById('totalPedido').textContent}\n`;
+  if(obs) msg += `\nObs.: ${obs}\n`;
+  msg += `\nNota: Cambio de talla chaqueta/pantalón +15€ cuando apliquen.`;
+  return msg;
+}
+
+document.getElementById('btnWhatsApp').addEventListener('click', ()=>{
+  const num = DATA.whatsapp.replace(/[^+0-9]/g,'');
+  const url = `https://wa.me/${num}?text=${encodeURIComponent(buildMensaje())}`;
+  window.open(url,'_blank');
+});
+
+document.getElementById('btnEmail').addEventListener('click', ()=>{
+  const fechaPedido = fechaHoyES();
+  const subject = `Pedido NAVY & BLUE – ${fechaPedido}`;
+  const body = buildMensaje();
+  const url = `mailto:info@navyandblue.es?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = url;
+});
+
+if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js?v2025-10-23-7'); }
+</script>
+</body>
+</html>

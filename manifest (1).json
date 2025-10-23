@@ -1,0 +1,21 @@
+{
+  "name": "Navy & Blue · Pedidos",
+  "short_name": "Navy&Blue",
+  "start_url": "/navy/",
+  "scope": "/navy/",
+  "display": "standalone",
+  "background_color": "#0a2540",
+  "theme_color": "#0a2540",
+  "icons": [
+    {
+      "src": "/navy/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/navy/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
